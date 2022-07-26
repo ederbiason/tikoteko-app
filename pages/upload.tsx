@@ -11,6 +11,10 @@ import { client } from '../utils/client'
 import { topics } from '../utils/constants'
 
 const Upload = () => {
+  const { userProfile }: { userProfile: any } = useAuthStore()
+
+  const router = useRouter()
+
   const [isLoading, setIsLoading] = useState(false)
   const [videoAsset, setVideoAsset] = useState<SanityAssetDocument | undefined>()
   const [wrongFileType, setWrongFileType] = useState(false)
@@ -34,6 +38,34 @@ const Upload = () => {
     } else {
         setIsLoading(false)
         setWrongFileType(true)
+    }
+  }
+
+  const handlePost = async () => {
+    if(caption && videoAsset?._id && category) {
+        setSavingPost(true)
+        
+        const document = {
+            _type: 'post',
+            caption,
+            video: {
+                _type: 'file',
+                asset: {
+                    _type: 'reference',
+                    _ref: videoAsset?._id
+                }
+            },
+            userId: userProfile?._id,
+            postedBy: {
+                _type: 'postedBy',
+                _ref: userProfile?._id
+            },
+            topic: category
+        }
+
+        await axios.post('http://localhost:3000/api/post', document)
+
+        router.push('/')
     }
   }
 
@@ -150,7 +182,7 @@ const Upload = () => {
                     </button>
 
                     <button
-                        onClick={() => {}}
+                        onClick={handlePost}
                         type="button"
                         className="bg-[#F51997] text-white text-md font-medium p-2 rounded w-28 lg:w-44 outline-none"
                     >
