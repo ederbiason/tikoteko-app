@@ -41,7 +41,7 @@ export const Comments = ({ comment, comments, setComment, addComment, isPostingC
                       <Link
                         href={`/profile/${user._id}`}
                       >
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-start gap-3">
                           <div className="w-8 h-8">
                             <Image
                               src={user.image}
