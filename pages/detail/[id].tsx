@@ -22,10 +22,10 @@ interface IProps {
 
 const Detail = ({ postDetails }: IProps) => {
   const [post, setPost] = useState(postDetails)
-  const [playing, setPlaying] = useState(false)
-  const [isVideoMuted, setIsVideoMuted] = useState(false)
-  const [comment, setComment] = useState('')
-  const [isPostingComment, setIsPostingComment] = useState(false)
+  const [playing, setPlaying] = useState<boolean>(false)
+  const [isVideoMuted, setIsVideoMuted] = useState<boolean>(false)
+  const [comment, setComment] = useState<string>('')
+  const [isPostingComment, setIsPostingComment] = useState<boolean>(false)
 
   const { userProfile }: any = useAuthStore()
 
